@@ -1,13 +1,14 @@
 .App-body {
-    font-size: 1.5rem;
-    padding: 25px;
+    border-bottom: 3px solid rgb(225, 67, 67);;
+    border-top: 3px solid rgb(225, 67, 67);;
+    height: 80%;
+    padding-left: 3rem;
+    padding-top: 2rem;
   }
-  
-  
-  .App-body .form label {
-    padding: 5px;
-    
+  label {
+    text-transform: capitalize;
+    padding-right: 1rem;
   }
-  .App-body .form input {
-    padding: 5px;
+  input {
+    margin-right: 1rem;
   }

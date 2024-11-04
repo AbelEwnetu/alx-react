@@ -1,8 +1,6 @@
-.App-footer { 
-    font-size: 1.5rem;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
+.App-footer {
     text-align: center;
-    border-top: thick solid #df3148;
-  }
+}
+.App-footer p {
+/* font-style: italic; */
+}

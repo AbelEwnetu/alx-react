@@ -1,16 +1,15 @@
-import React from 'react';
+import React from 'react'
+import logo from '../logo.jpg';
 import './Header.css'
-import logo from './logo.jpg';
 
-function Header(){
-    return(
-        <div className="App-header">
-        <img src={logo} alt="logo" />
-        <h1>
-        School dashboard
-        </h1>
-      </div>
-    )
+
+const Header = () => {
+  return (
+    <div className="App-header">
+        <img src={logo} alt='logo' height={200}></img>
+        <h1>School dashboard</h1>
+    </div>
+  )
 }
 
 export default Header
