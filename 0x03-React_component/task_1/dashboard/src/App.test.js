@@ -1,47 +1,47 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import App from './App';
-import Header from './Header/Header';
-import Login from './Login/Login';
-import Footer from './Footer/Footer';
-import Notifications from './Notifications/Notifications';
-import CourseList from './CourseList/CourseList'
-  
+/* REACT TESTING LIBRARY TESTS */
+import { render, screen, fireEvent } from "@testing-library/react"
+import App from "./App"
+
+/*
+test that App renders without crashing
+verify that App renders a div with the class App-header
+verify that App renders a div with the class App-body
+verify that App renders a div with the class App-footer
+ */
+
 describe('App', () => {
-  it('renders properly', () => {
-    shallow(<App />);
-  });
+    it("app renders without crashing", () => {
+        render(<App/>)
+        const headerElem = screen.getByRole("heading", {name: "School dashboard"})
+        expect(headerElem).toBeInTheDocument()
+    })
 
-  it('checking renders', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find(Header)).toHaveLength(1);
-    expect(wrapper.find(Login)).toHaveLength(1);
-    expect(wrapper.find(Footer)).toHaveLength(1);
-    expect(wrapper.find(Notifications)).toHaveLength(1);
-  });
-})
+    it('app does not render CourseList by default(isLoggedIn is false)', () => {
+        render(<App />)
+        expect(screen.queryByTestId('CourseList')).not.toBeInTheDocument()
+    })
+    
+    it('app renders CourseList when isLoggedIn is true', async () => {
+        render(<App />)
+        const btn = screen.getByText('OK')
+        expect(btn).toBeInTheDocument()
+        await fireEvent.click(btn)
+        expect(screen.getByTestId('CourseList')).toBeInTheDocument()
+    })
 
-describe('display when logged in', () => {
-  it ('logged in true', () => {
-    const wrapper = shallow(<App isLoggedIn="true" />);
-    expect(wrapper.find(CourseList).exists()).toBeTruthy();
-    expect(wrapper.find(Login).exists()).not.toBeTruthy();
-  });
-})
+    /* logout */
+    it('the logOut function is called when ctrl + h keys are pressed', () => {
+        // create a mock logOut fn (used to replace another fn (in this case the logOut prop fn) in the code during testing)
+        const logOut = jest.fn()
+        const testAlert = jest.fn()
+        window.alert = testAlert
+        // render App with the prop (logOut)
+        const { container } = render(<App logOut={logOut} />)
+        fireEvent.keyDown(container, { key: "h", ctrlKey: true })
+        expect(logOut).toHaveBeenCalled()
+        expect(testAlert).toHaveBeenCalledWith("Logging you out")
+        // restore alert fn
+        testAlert.mockRestore()
+    })
 
-describe('testing App as a class component', () => {
-  it('control+h test', () => {
-    const alertMock = jest.fn();
-  
-    const spy = jest.spyOn(App.prototype, 'componentDidMount');
-    const wrapper = mount(<App isLoggedIn="true" />);
-    expect(spy).toHaveBeenCalled();
-    const event = new KeyboardEvent('keydown', {
-      key: 'control',
-    });
-
-    spy.mockReset();
-    spy.mockRestore();
-    jest.clearAllMocks()
-  })
 })

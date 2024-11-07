@@ -1,18 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
-import BodySection from './BodySection';
+import { render, screen } from '@testing-library/react'
+import BodySectionWithMarginBottom from './BodySectionWithMarginBottom'
 
-describe('BodySectionWithMarginBottom tests', () => {
-    it('renders properly', () => {
-        shallow(<BodySectionWithMarginBottom />);
-    });
-    it ('check content of component and rendering', () => {
-        const children = <p>children of section</p>;
-        const wrapper = shallow(<BodySectionWithMarginBottom title='test' children={children}/>);
-        const section = wrapper.find(BodySection);
-        expect(section.exists()).toBeTruthy();
-        expect(section.prop('title')).toEqual('test');
-        expect(section.prop('children')).toEqual(children); 
-    })
+test('Component renders BodySection correctly, passing the props correctly to it', () => {
+    render(<BodySectionWithMarginBottom title="test title">
+            <p>test children node</p>
+        </BodySectionWithMarginBottom>)
+    expect(screen.getAllByRole('heading').length).toBe(1)
+    expect(screen.getByText('test title')).toBeDefined()
+    expect(screen.getByText('test children node')).toBeDefined()
 })

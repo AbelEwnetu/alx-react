@@ -1,16 +1,14 @@
-import React from 'react';
-import BodySection from './BodySection';
-import PropTypes from 'prop-types';
-import './BodySectionWithMarginBottom.css';
+import React from 'react'
+import BodySection from './BodySection'
+import './BodySectionWithMarginBottom.css'
 
-const BodySectionWithMarginBottom = (props) => (
+const BodySectionWithMarginBottom = (props) => {
+  return (
     <div className='bodySectionWithMargin'>
-        <BodySection {...props}/>
+        {/* BodySection takes the same props passed to `this` component */}
+      <BodySection { ...props } />
     </div>
-)
-
-BodySectionWithMarginBottom.propTypes = {
-    children: PropTypes.node
+  )
 }
 
-export default BodySectionWithMarginBottom;
+export default BodySectionWithMarginBottom

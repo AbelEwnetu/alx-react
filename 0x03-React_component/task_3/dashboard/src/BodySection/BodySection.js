@@ -1,16 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 
-const BodySection = (props) => (
-  <div className="bodySection">
-    <h2>{props.title}</h2>
-    {props.children}
-  </div>
-)
-
-BodySection.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node
+const BodySection = ({ title, children }) => {
+    return (
+        <div className='bodySection'>
+            <h2>{ title }</h2>
+            { children }
+        </div>
+    )
 }
 
-export default BodySection;
+export default BodySection
